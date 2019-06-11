@@ -1,6 +1,14 @@
 <script>
 import ExpenseTable from './components/ExpenseTable.svelte';
 	export let title;
+	import store from './shared/ExpenseStore.js';
+	
+	let expenses = [];
+	store.subscribe(data => {
+		expenses = data;
+	});
+  
+
 </script>
 
 <style>
@@ -11,4 +19,4 @@ import ExpenseTable from './components/ExpenseTable.svelte';
 
 <h1>{title}</h1>
 
-<ExpenseTable/>
+<ExpenseTable expenses={expenses}/>

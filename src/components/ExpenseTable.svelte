@@ -1,5 +1,6 @@
 <script>
-
+  export let expenses;
+  console.log("expenses", expenses);
 </script>
 
 <style>
