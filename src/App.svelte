@@ -1,5 +1,6 @@
 <script>
 import ExpenseTable from './components/ExpenseTable.svelte';
+import ExpenseCreate from './components/ExpenseCreate.svelte';
 	export let title;
 	import store from './shared/ExpenseStore.js';
 	
@@ -19,4 +20,5 @@ import ExpenseTable from './components/ExpenseTable.svelte';
 
 <h1>{title}</h1>
 
+<ExpenseCreate/>
 <ExpenseTable expenses={expenses}/>
