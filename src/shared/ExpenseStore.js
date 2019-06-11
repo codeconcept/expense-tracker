@@ -25,7 +25,8 @@ const store = writable([
 ]);
 
 export const totalTweenStore = tweened(0, {
-  duration: 600,
+  delay: 800,
+  duration: 500,
   easing: cubicOut
 });
 
