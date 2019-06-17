@@ -1,5 +1,6 @@
 <script>
   import store from "../shared/ExpenseStore.js";
+  import expenseService from "../shared/ExpenseService.js";
 
   let date;
   let paymentType;
@@ -9,21 +10,22 @@
   $: subtotal = amount * quantity;
 
   function createExpense() {
-    store.update(data => {
-      let id = data.length + 1;
-      let newExpense = {
-        id,
-        date,
-        paymentType,
-        category,
-        amount: parseFloat(amount),
-        quantity,
-        subtotal
-      };
-      id = data.length + 1;
-      return [...data, newExpense];
+    let newExpense = {
+      date,
+      paymentType,
+      category,
+      amount: parseFloat(amount),
+      quantity,
+      subtotal
+    };
+
+    expenseService.createExpense(newExpense).then(docRef => {
+      store.update(data => {
+        newExpense.id = docRef.id;
+        return [...data, newExpense];
+      });
+      initForm();
     });
-    initForm();
   }
 
   function initForm() {

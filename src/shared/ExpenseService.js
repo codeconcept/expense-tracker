@@ -1,7 +1,7 @@
 import { db } from "./firebase.js";
 
 function createExpense(expense) {
-  // TODO
+  return db.collection("expenses").add(expense);
 }
 
 function readExpenses() {
