@@ -16,6 +16,16 @@
       });      
     });
   }
+
+  function deleteExpense(event) {
+    const deletedExpense = event.detail;
+    expenseService.deleteExpense(deletedExpense).then(() => {
+      store.update(data => {
+        data = data.filter(expense => expense.id !== deletedExpense.id);
+        return [...data];
+      })
+    });
+  }
 </script>
 
 <style>
@@ -37,7 +47,7 @@
   </thead>
   <tbody>
     {#each expenses as exp}
-      <ExpenseRow expense={exp} on:expense-update={updateExpense} />
+      <ExpenseRow expense={exp} on:expense-update={updateExpense} on:expense-delete={deleteExpense} />
     {/each}
   </tbody>
 </table>

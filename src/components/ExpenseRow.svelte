@@ -6,7 +6,7 @@
 
   export let expense;
   const fadeOptions = {
-    duration: 700
+    duration: 300
   };
 
   let isInEditMode = false;
@@ -38,6 +38,10 @@
     dispatch("expense-update", itemEdit);
     isInEditMode = false;
   }
+
+  function deleteExpense(expense) {
+    dispatch("expense-delete", expense);
+  }
 </script>
 
 <style>
@@ -64,7 +68,7 @@
     <td>{expense.subtotal}</td>
     <td>
       <span class="action" on:click={() => toggleEdit(expense)}>edit</span>
-      <span class="action">delete</span>
+      <span class="action" on:click={() => deleteExpense(expense)}>delete</span>
     </td>
   </tr>
 {:else}
