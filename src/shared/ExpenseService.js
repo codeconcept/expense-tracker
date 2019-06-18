@@ -9,7 +9,7 @@ function readExpenses() {
 }
 
 function updateExpense(expense) {
-  // TODO
+  return db.collection("expenses").doc(expense.id).update({...expense});
 }
 
 function deleteExpense(expense) {

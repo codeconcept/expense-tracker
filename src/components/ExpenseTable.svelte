@@ -1,10 +1,21 @@
 <script>
-  import { fade } from "svelte/transition";
+  import ExpenseRow from "./ExpenseRow.svelte";
+  import store from "../shared/ExpenseStore.js";
+  import expenseService from "../shared/ExpenseService.js";
+
+
   export let expenses;
 
-  const fadeOptions = {
-    duration: 700
-  };
+  function updateExpense(event) {
+    const updatedExpense = event.detail;
+    expenseService.updateExpense(event.detail).then(() => {
+      store.update(data => {
+        const idx = data.findIndex(expense => expense.id === updatedExpense.id)
+        data[idx] = updatedExpense;
+        return [...data];
+      });      
+    });
+  }
 </script>
 
 <style>
@@ -21,19 +32,12 @@
       <th scope="col">Amount</th>
       <th scope="col">Quantity</th>
       <th scope="col">Subtotal</th>
+      <th scope="col" />
     </tr>
   </thead>
   <tbody>
     {#each expenses as exp}
-      <tr transition:fade={fadeOptions}>
-        <th scope="row">{exp.id}</th>
-        <td>{exp.date}</td>
-        <td>{exp.paymentType}</td>
-        <td>{exp.category}</td>
-        <td>{exp.amount}</td>
-        <td>{exp.quantity}</td>
-        <td>{exp.subtotal}</td>
-      </tr>
+      <ExpenseRow expense={exp} on:expense-update={updateExpense} />
     {/each}
   </tbody>
 </table>
